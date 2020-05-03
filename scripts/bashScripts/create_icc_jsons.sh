@@ -22,10 +22,16 @@ cd "${SCRIPTS}/../benchmarks/${ICC_DIR}"
 FILES_DIR=$(pwd)
 cd ${THIS}
 
-FILES=$(find ${FILES_DIR} -name "*.optrpt" | sort)
+cd "${FILES_DIR}"
+OLD_JSONS=$(find ${FILES_DIR} -name "*.json" | sort)
+for f in ${OLD_JSONS}; do
+  rm "$f"
+done
+cd ${THIS}
+
+FILES=$(find ${FILES_DIR} -name "*.c.optrpt" | sort)
 
 for f in ${FILES}; do
-
   cd "${SCRIPTS}/../benchmarks/${ICC_DIR}"
   original_str=$(pwd)
   cd ${SCRIPTS}
@@ -47,6 +53,32 @@ for f in ${FILES}; do
     sed -i "s/${original_str}/./g" "${filedir}/${filename}.json"
   fi
 done
+
+FILES=$(find ${FILES_DIR} -name "*.cpp.optrpt" | sort)
+
+for f in ${FILES}; do
+  cd "${SCRIPTS}/../benchmarks/${ICC_DIR}"
+  original_str=$(pwd)
+  cd ${SCRIPTS}
+  original_str=${original_str//\//\\\/}
+  filename=${f/$FILES_DIR/\/root}
+
+  echo "${f}"
+  ${ICC_PARSER} "${f}"
+
+  filename="${f//*\/}"
+  filename="${filename/.optrpt/}"
+  filedir="${f%/*}"
+
+  if [ -f "${f}.json"  ]; then
+    mv "${f}.json" "${filedir}/${filename}.json"
+  fi
+
+  if [ -f "${filedir}/${filename}.json" ]; then
+    sed -i "s/${original_str}/./g" "${filedir}/${filename}.json"
+  fi
+done
+
 }
 
 setEnvironment () {

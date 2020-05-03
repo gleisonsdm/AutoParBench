@@ -169,6 +169,14 @@ set_environment
 
 link_jsons
 
+#collect_data ICC_Full reference_cpu_threading Ground_Truth "${BASELINE_JSON[@]}" "CPU"
+#collect_data ICC_Full Autopar Autopar "${AUTOPAR_JSON[@]}" "CPU"
+#collect_data ICC_Full ICC_Cost ICC_Cost "${ICC_COST_JSON[@]}" "CPU"
+#collect_data ICC_Full ICC_Full ICC_Full "${ICC_NOCOST_JSON[@]}" "CPU"
+#collect_data ICC_Full Cetus Cetus "${CETUS_JSON[@]}" "CPU"
+#collect_data reference_gpu_target Dawncc Dawncc "${DAWNCC_JSON[@]}" "GPU"
+#collect_data reference_cpu_simd ICC_Simd ICC_Simd "${ICC_SIMD_NOCOST_JSON[@]}" "CPU_VECTORIZATION"
+
 collect_data reference_cpu_threading reference_cpu_threading Ground_Truth "${BASELINE_JSON[@]}" "CPU"
 collect_data reference_cpu_threading Autopar Autopar "${AUTOPAR_JSON[@]}" "CPU"
 collect_data reference_cpu_threading ICC_Cost ICC_Cost "${ICC_COST_JSON[@]}" "CPU"
@@ -176,7 +184,6 @@ collect_data reference_cpu_threading ICC_Full ICC_Full "${ICC_NOCOST_JSON[@]}" "
 collect_data reference_cpu_threading Cetus Cetus "${CETUS_JSON[@]}" "CPU"
 collect_data reference_gpu_target Dawncc Dawncc "${DAWNCC_JSON[@]}" "GPU"
 collect_data reference_cpu_simd ICC_Simd ICC_Simd "${ICC_SIMD_NOCOST_JSON[@]}" "CPU_VECTORIZATION"
-
 
 ANALYZE_DAWNCC=false
 ANALYZE_ICC_SIMD_NOCOST=false
